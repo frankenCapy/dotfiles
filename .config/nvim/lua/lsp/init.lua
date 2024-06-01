@@ -16,6 +16,7 @@ masonLspconfig.setup {
     "tailwindcss",
     "taplo",
     "tsserver",
+    "rust_analyzer",
     "jedi_language_server",
     "cucumber_language_server"
   },
@@ -131,6 +132,7 @@ masonLspconfig.setup_handlers({
       settings = require('lsp.servers.tailwindcss').settings,
     }
   end,
+  ["rust_analyzer"] = function() end,
 })
 
 M.on_attach = on_attach
