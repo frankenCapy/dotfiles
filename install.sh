@@ -4,6 +4,7 @@
 PATHS_TO_LINK=(
   ".config/alacritty"
   ".config/nvim"
+  ".config/bat"
   ".local/scripts"
   ".tmux.conf"
 )
