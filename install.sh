@@ -3,8 +3,9 @@
 # Installs dotfiles
 PATHS_TO_LINK=(
   ".config/alacritty"
-  ".config/nvim"
   ".config/bat"
+  ".config/nvim"
+  ".config/starship.toml"
   ".local/scripts"
   ".tmux.conf"
 )
