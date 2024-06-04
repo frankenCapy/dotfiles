@@ -5,6 +5,39 @@ add_newline = false
 
 palette = "catppuccin_mocha"
 
+format = """
+$username\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$docker_context\
+$package\
+$c\
+$cmake\
+$golang\
+$helm\
+$lua\
+$nodejs\
+$opa\
+$python\
+$rust\
+$terraform\
+$zig\
+$memory_usage\
+$aws\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$character"""
+
 [git_branch]
 symbol = ' '
 
@@ -35,3 +68,18 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+[aws]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[c]
+disabled = true
+
+[helm]
+disabled = true
+
+[terraform]
+disabled = true
