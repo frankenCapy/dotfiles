@@ -1,12 +1,18 @@
 return {
   "nvim-neorg/neorg",
-  dependencies = { "luarocks.nvim" },
+  dependencies = { "luarocks.nvim", "folke/zen-mode.nvim" },
   version = "*",
   config = function()
     require("neorg").setup {
       load = {
         ["core.defaults"] = {},
         ["core.concealer"] = {},
+        ["core.ui.calendar"] = {},
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "zen-mode",
+          },
+        },
         ["core.dirman"] = {
           config = {
             workspaces = {
