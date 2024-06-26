@@ -8,6 +8,11 @@ return {
         ["core.defaults"] = {},
         ["core.concealer"] = {},
         ["core.ui.calendar"] = {},
+        ["core.export"] = {
+          config = {
+            export_dir = "~/notes/<language>-export",
+          }
+        },
         ["core.presenter"] = {
           config = {
             zen_mode = "zen-mode",
