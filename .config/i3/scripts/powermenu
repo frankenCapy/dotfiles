@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+function command_exists() {
+  command -v "$1" &> /dev/null 2>&1
+}
+if ! command_exists systemctl ; then
+  exit 1
+fi
+if ! command_exists rofi ; then
+  exit 1
+fi
+
+typeset -A menu
+menu=(
+  [ Shutdown]="systemctl poweroff"
+  [ Reboot]="systemctl reboot"
+  [ Suspend]="systemctl suspend"
+  [ Hibernate]="systemctl hibernate"
+  [ Lock]="~/.config/i3/scripts/blur-lock"
+  [ Logout]="i3-msg exit"
+  [ Cancel]=""
+)
+
+launcher=(rofi -dmenu)
+selection="$(printf '%s\n' "${!menu[@]}" | sort | "${launcher[@]}")"
+
+if [[ $? -eq 0 && ! -z ${selection} ]]; then
+    i3-msg -q "exec --no-startup-id ${menu[${selection}]}"
+fi
