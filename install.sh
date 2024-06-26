@@ -5,6 +5,7 @@ PATHS_TO_LINK=(
   ".config/alacritty"
   ".config/bat"
   ".config/nvim"
+  ".config/rofi"
   ".config/starship.toml"
   ".local/scripts"
   ".tmux.conf"
