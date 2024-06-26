@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nc -W 1 -U  /run/user/1000/ncspot/ncspot.sock | jq '.playable | "\(.artists[0]) - \(.title)"'

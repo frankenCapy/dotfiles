@@ -4,6 +4,8 @@
 PATHS_TO_LINK=(
   ".config/alacritty"
   ".config/bat"
+  ".config/i3"
+  ".config/i3status-rust"
   ".config/nvim"
   ".config/rofi"
   ".config/starship.toml"
