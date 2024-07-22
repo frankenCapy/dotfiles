@@ -2,19 +2,19 @@ return {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,
   build = function()
-    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-    ts_update()
+    require("nvim-treesitter.install").update({ with_sync = true })()
   end,
   config = function()
-    vim.opt.runtimepath:append("$HOME/.local/share/treesitter")
+    vim.opt.runtimepath:prepend("$HOME/.local/share/treesitter")
 
     require 'nvim-treesitter.configs'.setup {
       parser_install_dir = "$HOME/.local/share/treesitter",
-      ensure_installed = { "c", "lua", "rust", "go", "javascript", "typescript", "json", "html", "json" },
+      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "go", "javascript", "typescript", "json", "html", "json" },
       modules = {},
       sync_install = false,
       auto_install = true,
       ignore_install = {},
+      indent = { enable = true },
       highlight = {
         enable = true,
         disable = function(_, buf)
