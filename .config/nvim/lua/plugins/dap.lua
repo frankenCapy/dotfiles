@@ -16,30 +16,26 @@ return {
     config = function()
       local dap = require('dap')
 
-      wk.register({
-        ["<F1>"] = { function() require "dapui".toggle() end, "dap ui" },
-        ["<F2>"] = { function() require "dap".toggle_breakpoint() end, "breakpoint" },
-        ['<F3>'] = { function() require "dap".set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
-          "conditional breakpoint" },
-        ['<F4>'] = { function() require "dap".set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-          "log point" },
-        ['<F5>'] = { function() require "dap".continue() end, "continue" },
-        ['<F6>'] = { function() require "dap".step_over() end, "step over" },
-        ['<F7>'] = { function() require "dap".step_into() end, "step into" },
-        ['<F8>'] = { function() require "dap".step_out() end, "step out" },
-        ['<F9>'] = { function() require "dap".run_last() end, "run last" },
-        ['<F10>'] = { function() require "dap".repl.open() end, "open REPL" },
+      wk.add({
+        { "<F1>",  function() require "dapui".toggle() end,                                                    desc = "dap ui" },
+        { "<F2>",  function() require "dap".toggle_breakpoint() end,                                           desc = "breakpoint" },
+        { '<F3>',  function() require "dap".set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,        desc = "conditional breakpoint" },
+        { '<F4>',  function() require "dap".set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, desc = "log point" },
+        { '<F5>',  function() require "dap".continue() end,                                                    desc = "continue" },
+        { '<F6>',  function() require "dap".step_over() end,                                                   desc = "step over" },
+        { '<F7>',  function() require "dap".step_into() end,                                                   desc = "step into" },
+        { '<F8>',  function() require "dap".step_out() end,                                                    desc = "step out" },
+        { '<F9>',  function() require "dap".run_last() end,                                                    desc = "run last" },
+        { '<F10>', function() require "dap".repl.open() end,                                                   desc = "open REPL" },
       })
 
-      wk.register({
-        d = {
-          name = "Debug",
-          s = { ':lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").scopes)<CR>', "scopes" },
-          f = { ':lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").frames)<CR>', "frames" },
-          p = { ':lua require("dap.ui.widgets").preview()<CR>', "preview" },
-          h = { ':lua require("dap.ui.widgets").hover()<CR>', "hover" },
-        }
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>d",  group = "Debug" },
+        { "<leader>df", ':lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").frames)<CR>', desc = "frames" },
+        { "<leader>dh", ':lua require("dap.ui.widgets").hover()<CR>',                                          desc = "hover" },
+        { "<leader>dp", ':lua require("dap.ui.widgets").preview()<CR>',                                        desc = "preview" },
+        { "<leader>ds", ':lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").scopes)<CR>', desc = "scopes" },
+      })
 
       dap.adapters.delve = {
         type = 'server',

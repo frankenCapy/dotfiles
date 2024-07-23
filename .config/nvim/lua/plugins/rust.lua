@@ -1,10 +1,3 @@
--- return {
---   -- TODO: migrate to 'mrcjkb/rustaceanvim' or other,
---   'simrat39/rust-tools.nvim',
---   lazy = true,
---   dependencies = { 'nvim-dap', 'nvim-lspconfig' },
--- }
-
 return {
   'mrcjkb/rustaceanvim',
   version = '^4', -- Recommended
