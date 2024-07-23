@@ -12,9 +12,9 @@ return {
   config = function()
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
-    wk.register({
-      a = { "<cmd>Neotree toggle<cr>", "Toggle Neotree" }, -- create a binding with label
-    }, { prefix = "<leader>" })
+    wk.add({
+      { "<leader>a", "<cmd>Neotree toggle<cr>", desc = "Toggle Neotree" },
+    })
 
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
