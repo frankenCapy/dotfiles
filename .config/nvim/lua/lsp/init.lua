@@ -15,7 +15,7 @@ masonLspconfig.setup {
     "lua_ls",
     "tailwindcss",
     "taplo",
-    "tsserver",
+    "vtsls",
     "rust_analyzer",
     "jedi_language_server",
     "cucumber_language_server"
@@ -41,7 +41,7 @@ require "lsp_signature".setup({
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   require "lsp_signature".on_attach({
     bind = true, -- This is mandatory, otherwise border config won't get registered.
     handler_opts = {
@@ -109,17 +109,6 @@ masonLspconfig.setup_handlers({
       handlers = handlers,
       on_attach = on_attach,
       settings = require('lsp.servers.lua_ls').settings,
-    }
-  end,
-  ["tsserver"] = function()
-    lspconfig.tsserver.setup {
-      capabilities = capabilities,
-      handlers = handlers,
-      init_options = require('lsp.servers.tsserver').init_options,
-      on_attach = function(client, bufnr)
-        require('lsp.servers.tsserver').on_attach(client, bufnr);
-        on_attach(client, bufnr);
-      end,
     }
   end,
   ["tailwindcss"] = function()
