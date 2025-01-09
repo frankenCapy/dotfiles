@@ -1,5 +1,6 @@
 return {
-  'anuvyklack/hydra.nvim',
+  'nvimtools/hydra.nvim',
+  dependencies = { "zbirenbaum/copilot.lua" },
   config = function()
     local Hydra = require('hydra')
     local hint = [[

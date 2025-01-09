@@ -10,7 +10,7 @@ return {
           jump_next = "]]",
           accept = "<CR>",
           refresh = "gr",
-          open = "<M-CR>"
+          open = "<M-i>"
         },
         layout = {
           position = "bottom",
@@ -19,7 +19,7 @@ return {
       },
       suggestion = {
         enabled = true,
-        auto_trigger = true,
+        auto_trigger = false,
         debounce = 75,
         keymap = {
           accept = "<M-y>",
@@ -47,7 +47,7 @@ return {
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" },
