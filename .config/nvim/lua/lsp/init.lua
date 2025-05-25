@@ -1,6 +1,5 @@
 local M = {}
 
--- Setup installer & lsp configs
 require("mason").setup()
 local masonLspconfig = require("mason-lspconfig")
 masonLspconfig.setup {
@@ -17,7 +16,7 @@ masonLspconfig.setup {
     "taplo",
     "vtsls",
     "rust_analyzer",
-    "jedi_language_server",
+    "pylsp",
     "cucumber_language_server"
   },
   automatic_installation = true,
@@ -30,17 +29,28 @@ local handlers = {
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
 }
 
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<Leader>ee', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<Leader>ek', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<Leader>ej', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<Leader>eq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+local function mergeTables(t1, t2)
+  for k, v in pairs(t2) do
+    t1[k] = v
+  end
+  return t1
+end
+
+local map = function(keys, func, opts, mode)
+  mode = mode or 'n'
+  local default_opts = { noremap = true, silent = true }
+  opts = opts and mergeTables(default_opts, opts) or default_opts
+  vim.keymap.set(mode, keys, func, opts)
+end
+map('<Leader>ee', '<cmd>lua vim.diagnostic.open_float()<CR>')
+map('<Leader>ek', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+map('<Leader>ej', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+map('<Leader>eq', '<cmd>lua vim.diagnostic.setloclist()<CR>')
+
 require "lsp_signature".setup({
   toggle_key = '<M-m>'
 })
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
   require "lsp_signature".on_attach({
     bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -48,25 +58,24 @@ local on_attach = function(_, bufnr)
       border = "rounded"
     }
   }, bufnr)
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>wl',
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>', opts)
+
+  map('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { buffer = bufnr })
+  map('gd', require('telescope.builtin').lsp_definitions, { buffer = bufnr })
+  map('gr', require('telescope.builtin').lsp_references, { buffer = bufnr })
+  map('K', '<cmd>lua vim.lsp.buf.hover()<CR>', { buffer = bufnr })
+  map('gi', require('telescope.builtin').lsp_implementations, { buffer = bufnr })
+  map('gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { buffer = bufnr })
+  map('<localleader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { buffer = bufnr })
+  map('<localleader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { buffer = bufnr })
+  map('<localleader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { buffer = bufnr })
+  map('<localleader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { buffer = bufnr })
+  map('<localleader>D', require('telescope.builtin').lsp_type_definitions, { buffer = bufnr })
+  map('<localleader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { buffer = bufnr })
+  map('<localleader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { buffer = bufnr })
+  map('<localleader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>', { buffer = bufnr })
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 masonLspconfig.setup_handlers({
   function(server_name) -- default handler (optional)
@@ -94,6 +103,14 @@ masonLspconfig.setup_handlers({
       handlers = handlers,
       on_attach = on_attach,
       settings = require('lsp.servers.jsonls').settings,
+    }
+  end,
+  ["pylsp"] = function()
+    lspconfig.pylsp.setup {
+      capabilities = capabilities,
+      handlers = handlers,
+      on_attach = on_attach,
+      settings = require('lsp.servers.pylsp').settings,
     }
   end,
   ["yamlls"] = function()

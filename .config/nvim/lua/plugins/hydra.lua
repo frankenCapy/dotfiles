@@ -39,9 +39,8 @@ return {
         color = 'amaranth',
         invoke_on_body = true,
         hint = {
-          border = 'rounded',
           position = 'middle',
-          funcs = funcs
+          funcs = funcs,
         }
       },
       mode = { 'n', 'x' },

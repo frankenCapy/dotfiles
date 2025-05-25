@@ -9,7 +9,7 @@ return {
 
     require 'nvim-treesitter.configs'.setup {
       parser_install_dir = "$HOME/.local/share/treesitter",
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "go", "javascript", "typescript", "json", "html", "json" },
+      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "go", "javascript", "typescript", "json", "html", "json", "markdown", "python" },
       modules = {},
       sync_install = false,
       auto_install = true,
