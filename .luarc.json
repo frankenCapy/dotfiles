@@ -3,6 +3,7 @@
     "vim",
     "bit",
     "use",
+        "Snacks",
   ],
   "workspace.checkThirdParty": false
 }

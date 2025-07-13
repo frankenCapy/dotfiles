@@ -14,15 +14,26 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     -- Save cursor position
     local cursor_pos = vim.api.nvim_win_get_cursor(0)
-    
+
     -- Remove trailing whitespace
     vim.cmd([[%s/\s\+$//e]])
-    
+
     -- Remove trailing empty lines
     vim.cmd([[%s/\n\+\%$//e]])
-    
+
     -- Restore cursor position
     pcall(vim.api.nvim_win_set_cursor, 0, cursor_pos)
   end,
 })
 
+-- Auto-reload files changed outside of vim
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"}, {
+  desc = 'Auto reload files changed outside of vim',
+  group = vim.api.nvim_create_augroup('auto-reload', { clear = true }),
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end
+})

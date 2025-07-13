@@ -12,7 +12,7 @@ transparent_background_colors = true
 
 [font]
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Regular" }
-size = 20
+size = 15
 
 [cursor]
 style = { shape = "Block" }

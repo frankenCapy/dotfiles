@@ -2,6 +2,8 @@
 
 # Installs dotfiles
 PATHS_TO_LINK=(
+  ".claude/commands"
+  ".claude/settings.json"
   ".config/alacritty"
   ".config/bat"
   ".config/i3"
@@ -29,4 +31,3 @@ link(){
 for f in ${PATHS_TO_LINK[@]}; do
     link $f
 done
-
