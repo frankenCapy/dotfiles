@@ -18,7 +18,6 @@ $docker_context\
 $package\
 $c\
 $cmake\
-$conda\
 $golang\
 $helm\
 $lua\

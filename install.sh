@@ -3,7 +3,9 @@
 # Installs dotfiles
 PATHS_TO_LINK=(
   ".claude/commands"
+  ".claude/agents"
   ".claude/settings.json"
+  ".claude/CLAUDE.md"
   ".config/alacritty"
   ".config/bat"
   ".config/i3"
