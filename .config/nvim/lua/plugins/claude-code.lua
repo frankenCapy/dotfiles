@@ -1,17 +1,29 @@
+local toggle_key = "<M-,>" -- Alt/Meta + comma
+
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  config = function()
-    require("claudecode").setup({
-      terminal = {
-        split_width_percentage = 0.4,
-        split_side = "right",
+  opts = {
+    terminal = {
+      split_width_percentage = 0.4,
+      split_side = "bottom",
+      snacks_win_opts = {
+        position = "bottom",
+        height = 0.4,
+        border = "rounded",
+        keys = {
+          claude_hide = { toggle_key, function(self) self:hide() end, mode = "t", desc = "Hide" },
+        },
       },
-    })
-  end,
+    },
+    diff = {
+      keep_focus = true,
+    },
+  },
   keys = {
+    { toggle_key,   "<cmd>ClaudeCodeFocus<cr>",       desc = "Claude Code",       mode = { "n", "x" } },
     { "<leader>c",  nil,                              desc = "Claude Code" },
-    { "<leader>cc", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
+    -- { "<leader>cc", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
     { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
     { "<leader>cr", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
     { "<leader>cC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },

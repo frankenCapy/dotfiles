@@ -14,7 +14,9 @@ return {
       sources = {
         explorer = {
           jump = { close = true },
-          hidden = true
+          hidden = true,
+          git_untracked = true,
+          include = { "**/*" }
         }
       }
     },

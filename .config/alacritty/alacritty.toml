@@ -12,7 +12,8 @@ transparent_background_colors = true
 
 [font]
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Regular" }
-size = 15
+size = 12
+builtin_box_drawing = true
 
 [cursor]
 style = { shape = "Block" }
@@ -28,8 +29,8 @@ bindings = [
   { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
   { key = "C", mods = "Control|Shift", action = "Copy" },
   { key = "V", mods = "Control|Shift", action = "Paste" },
-  { key = "+", mods = "Control|Shift", action = "IncreaseFontSize" },
-  { key = "-", mods = "Control|Shift", action = "DecreaseFontSize" },
+  { key = "1", mods = "Control|Shift", action = "IncreaseFontSize" },
+  { key = "2", mods = "Control|Shift", action = "DecreaseFontSize" },
   { key = "0", mods = "Control|Shift", action = "ResetfontSize" },
-  { key = "u", mods = "Control|Shift", action = "SearchBackward" },
+  { key = "u", mods = "Control|Shift", action = "SearchBackward" }
 ]

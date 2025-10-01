@@ -27,12 +27,6 @@ map("n", "<C-A-Up>", ":wincmd s<CR>:wincmd k<CR>", { silent = true })
 map("n", "<C-A-Right>", ":wincmd v<CR>", { silent = true })
 map("n", "<C-A-x>", ":wincmd q<CR>", { silent = true })
 
--- Better window navigation
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", silent = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", silent = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", silent = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", silent = true })
-
 -- Resize windows with arrows
 map("n", "<C-Up>", ":resize +2<CR>", { silent = true })
 map("n", "<C-Down>", ":resize -2<CR>", { silent = true })
