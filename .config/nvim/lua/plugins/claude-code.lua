@@ -5,12 +5,9 @@ return {
   dependencies = { "folke/snacks.nvim" },
   opts = {
     terminal = {
-      split_width_percentage = 0.4,
-      split_side = "bottom",
+      split_width_percentage = 0.3,
+      split_side = "right",
       snacks_win_opts = {
-        position = "bottom",
-        height = 0.4,
-        border = "rounded",
         keys = {
           claude_hide = { toggle_key, function(self) self:hide() end, mode = "t", desc = "Hide" },
         },
