@@ -12,7 +12,7 @@ transparent_background_colors = true
 
 [font]
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Regular" }
-size = 12
+size = 14
 builtin_box_drawing = true
 
 [cursor]

@@ -83,3 +83,31 @@ disabled = true
 
 [terraform]
 disabled = true
+
+[custom.venv_inactive]
+command = '''
+find_venv() {
+    local dir="$PWD"
+    while [[ "$dir" != "/" ]]; do
+        if [[ -d "$dir/.venv" ]]; then
+            echo "$dir/.venv"
+            return 0
+        fi
+        dir=$(dirname "$dir")
+    done
+    return 1
+}
+
+if venv_path=$(find_venv); then
+    if [[ -z "$VIRTUAL_ENV" ]]; then
+        echo "(venv not active)"
+    elif [[ "$VIRTUAL_ENV" != "$venv_path" ]]; then
+        echo "(!venv)"
+    fi
+fi
+'''
+when = true
+shell = ["zsh"]
+format = "[$output]($style) "
+style = "red"
+description = "Show when .venv is available but not activated"
