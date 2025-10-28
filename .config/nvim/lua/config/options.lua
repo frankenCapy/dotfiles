@@ -21,8 +21,8 @@ vim.opt.mouse                 = "a"
 vim.opt.number                = true
 vim.opt.pumheight             = 15
 vim.opt.relativenumber        = false
-vim.opt.scrolloff             = 5
-vim.opt.sidescrolloff         = 5
+vim.opt.scrolloff             = 10
+vim.opt.sidescrolloff         = 8
 vim.opt.shiftwidth            = 2
 vim.opt.smartindent           = true
 vim.opt.smarttab              = true
@@ -76,7 +76,16 @@ vim.bo.syntax                 = 'ON'
 
 -- Automatically remove trailing whitespace and empty lines
 vim.opt.list                  = true
-vim.opt.listchars             = { tab = '→ ', trail = '·', nbsp = '⎵' }
+vim.opt.listchars             = { tab = '→ ', trail = '·', nbsp = '⎵', extends = '›', precedes = '‹' }
+
+-- Column width guide
+vim.opt.colorcolumn           = '120'
+
+-- Line spacing
+vim.opt.linespace             = 2
+
+-- Better split separators
+vim.opt.fillchars             = { vert = '│', fold = '·', diff = '-', eob = ' ' }
 
 -- Format options to prevent auto-insertion of comment leaders
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' })

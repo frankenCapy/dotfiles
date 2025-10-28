@@ -21,16 +21,39 @@ return {
       }
     },
     indent = {
-      indent = { enabled = false },
+      indent = {
+        enabled = false,
+      },
       animate = { enabled = false },
       scope = {
         enabled = true,
         priority = 200,
         char = "│",
         only_current = true,
-        hl = "SnacksIndent",
+        hl = "SnacksIndentScope",
       },
     },
+    -- dim = {
+    --   enabled = true,
+    --   scope = {
+    --     cursor = false, -- disable cursor column detection for better comment handling
+    --     treesitter = {
+    --       enabled = true,
+    --       blocks = {
+    --         enabled = true, -- enable specific block filtering
+    --         "function_declaration",
+    --         "function_definition",
+    --         "method_declaration",
+    --         "method_definition",
+    --         "class_declaration",
+    --         "class_definition",
+    --       },
+    --     },
+    --   },
+    --   animate = {
+    --     enabled = false,
+    --   },
+    -- },
     input = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
