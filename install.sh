@@ -3,6 +3,7 @@
 # Installs dotfiles
 PATHS_TO_LINK=(
   ".claude/commands"
+  ".claude/skills"
   ".claude/agents"
   ".claude/settings.json"
   ".claude/CLAUDE.md"
