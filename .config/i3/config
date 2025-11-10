@@ -16,6 +16,11 @@ workspace_layout default
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
+# rofi
+bindsym $mod+Shift+d exec --no-startup-id "rofi -show run"
+bindsym $mod+d exec --no-startup-id "rofi -show drun"
+bindsym $mod+t exec --no-startup-id "rofi -show window"
+
 # workspace navigation
 ## switch to ws via num keys
 bindcode $mod+10 workspace $ws1
@@ -181,10 +186,10 @@ set $ws9 "9"
 set $ws10 "10"
 
 # bind to workspace and focus on startup:
-assign [class="(?i)firefox"] $ws2
+# assign [class="(?i)firefox"] $ws2
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=(?i)firefox] focus
+# for_window [class=(?i)firefox] focus
 
 # autostart
 exec --no-startup-id ~/.screenlayout/main.sh
@@ -208,6 +213,8 @@ for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enabl
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Bild-im-Bild"] floating enable
 for_window [window_role="About"] floating enable
+for_window [class="Google-chrome"] floating enable
+for_window [class="Chromium"] floating enable
 
 # color variables
 set $rosewater #f5e0dc
@@ -248,10 +255,10 @@ client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
 bar {
-  font pango: SauceCodePro Nerd Font 13
+  font pango: JetBrainsMono Nerd Font Mono 11
   status_command i3status-rs ~/.config/i3status-rust/config.toml
   position top
-	tray_output primary
+  tray_output primary
   tray_padding 8
   strip_workspace_numbers yes
   strip_workspace_name no
@@ -259,13 +266,9 @@ bar {
         separator $surface2
         background $basetrans
         statusline $basetrans
-  	    focused_workspace  $mauve $surface0 $text
+        focused_workspace  $mauve $surface0 $text
         active_workspace $surface0 $surface0 $text
         inactive_workspace $surface2 $surface2 $overlay1
         urgent_workspace $surface0 $red $text
   }
 }
-
-bindsym $mod+d exec --no-startup-id rofi -show drun \
-bindsym $mod+t exec --no-startup-id rofi -show window \
-    
