@@ -80,13 +80,13 @@ return {
 
 		-- Dim git signs to match line number aesthetic
 		vim.api.nvim_set_hl(0, 'MiniDiffSignAdd', {
-			fg = '#4a5e4a',  -- Dimmed green
+			fg = '#6a8a6a',  -- Brighter green but still subtle
 		})
 		vim.api.nvim_set_hl(0, 'MiniDiffSignChange', {
-			fg = '#5e5a40',  -- Dimmed yellow/orange
+			fg = '#8a8160',  -- Brighter yellow/orange but still subtle
 		})
 		vim.api.nvim_set_hl(0, 'MiniDiffSignDelete', {
-			fg = '#5e4444',  -- Dimmed red
+			fg = '#8a5a5a',  -- Brighter red but still subtle
 		})
 	end
 }

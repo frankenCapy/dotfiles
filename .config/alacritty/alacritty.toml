@@ -1,5 +1,3 @@
-# https://alacritty.org/config-alacritty.html
-import = ["~/.config/alacritty/catppuccin-mocha.toml"]
 
 [window]
 padding = { x = 0, y = 0 }
@@ -12,7 +10,7 @@ transparent_background_colors = true
 
 [font]
 normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
-size = 14
+size = 12
 builtin_box_drawing = true
 
 [font.offset]
@@ -37,3 +35,7 @@ bindings = [
   { key = "0", mods = "Control|Shift", action = "ResetfontSize" },
   { key = "u", mods = "Control|Shift", action = "SearchBackward" }
 ]
+
+[general]
+# https://alacritty.org/config-alacritty.html
+import = ["~/.config/alacritty/catppuccin-mocha.toml"]

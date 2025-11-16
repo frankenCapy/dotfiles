@@ -79,7 +79,7 @@ vim.opt.list                  = true
 vim.opt.listchars             = { tab = '→ ', trail = '·', nbsp = '⎵', extends = '›', precedes = '‹' }
 
 -- Column width guide
-vim.opt.colorcolumn           = '120'
+vim.opt.colorcolumn           = ''
 
 -- Line spacing
 vim.opt.linespace             = 2

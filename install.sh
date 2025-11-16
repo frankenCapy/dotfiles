@@ -14,6 +14,7 @@ PATHS_TO_LINK=(
   ".config/nvim"
   ".config/rofi"
   ".config/starship.toml"
+  ".config/zellij"
   ".local/scripts"
   ".tmux.conf"
 )
