@@ -69,3 +69,30 @@ map("n", ">", ">>", { silent = true })
 
 -- File tree toggle
 map("n", "<leader>a", function() Snacks.explorer() end, { desc = "Toggle file tree" })
+
+-- Smart fold toggle that works from anywhere in fold
+_G.toggle_fold_smart = function()
+  local line = vim.fn.line('.')
+  -- Check if current line is in a closed fold
+  local fold_closed = vim.fn.foldclosed(line)
+
+  if fold_closed ~= -1 then
+    -- We're in a closed fold, open it
+    vim.cmd('normal! zo')
+  else
+    -- We're in an open fold or on a fold line, close it
+    -- Use zc to close the fold containing the cursor
+    vim.cmd('normal! zc')
+  end
+end
+
+-- Markdown-specific fold keybindings
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Override za to work from anywhere in fold
+    map('n', 'za', '<cmd>lua toggle_fold_smart()<CR>', { buffer = true, desc = "Toggle fold at cursor" })
+    map('n', 'zR', 'zR', { buffer = true, desc = "Open all folds" })
+    map('n', 'zM', 'zM', { buffer = true, desc = "Close all folds" })
+  end,
+})

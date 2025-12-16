@@ -16,9 +16,25 @@ return {
   },
   config = function(_, opts)
     local wk = require("which-key")
+    opts.post_jump_cmd = "normal! ztzo"
+    opts.nav = {
+      autojump = true,
+      keymaps = {
+        ["<CR>"] = "actions.jump",
+        ["<2-LeftMouse>"] = "actions.jump",
+        ["<C-v>"] = "actions.jump_vsplit",
+        ["<C-s>"] = "actions.jump_split",
+        ["<Left>"] = "actions.left",
+        ["<Right>"] = "actions.right",
+        ["h"] = "actions.left",
+        ["l"] = "actions.right",
+        ["<C-c>"] = "actions.close",
+        ["q"] = "actions.close",
+      }
+    }
     require("aerial").setup(opts)
     wk.add({
-      { "<localleader>s", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
+      { "<localleader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
     })
   end,
 }
