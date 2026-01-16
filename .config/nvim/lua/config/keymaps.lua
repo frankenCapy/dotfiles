@@ -86,6 +86,118 @@ _G.toggle_fold_smart = function()
   end
 end
 
+-- Smart gx handler for markdown files
+_G.open_link_smart = function()
+  local line = vim.api.nvim_get_current_line()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+
+  -- Try to find markdown link [text](path)
+  local link_pattern = "%[.-%]%((.-)%)"
+  for link in line:gmatch(link_pattern) do
+    local start_pos = line:find("%[.-%]%(" .. vim.pesc(link) .. "%)")
+    if start_pos and col >= start_pos - 1 then
+      -- Check if it's a URL (http/https) - always open in browser
+      if link:match("^https?://") then
+        vim.ui.open(link)
+        return
+      end
+
+      -- Check if it's a local markdown file
+      if link:match("%.md$") or link:match("%.md#") then
+        -- Remove any anchor links
+        local file_path = link:gsub("#.*$", "")
+
+        -- Handle relative paths
+        if not file_path:match("^/") and not file_path:match("^~") then
+          local current_file = vim.fn.expand("%:p:h")
+          file_path = current_file .. "/" .. file_path
+        end
+
+        -- Expand ~ to home directory
+        file_path = vim.fn.expand(file_path)
+
+        -- Open in current window
+        vim.cmd("edit " .. vim.fn.fnameescape(file_path))
+        return
+      else
+        -- For other non-markdown links, use system handler
+        vim.ui.open(link)
+        return
+      end
+    end
+  end
+
+  -- Fallback to default gx behavior for URLs
+  local url_pattern = "https?://[%w-_%.%?%.:/%+=&@]+"
+  local url = line:match(url_pattern)
+  if url then
+    vim.ui.open(url)
+  end
+end
+
+-- Presentation mode toggle - makes cursorline highly visible with color cycling
+_G.presentation_mode = false
+_G.presentation_color_index = 1
+_G.presentation_colors = {
+  { name = "Red", bg = "#5e3a3a", fg = "#f38ba8" },
+  { name = "Green", bg = "#3a5e3a", fg = "#a6e3a1" },
+  { name = "Blue", bg = "#3a4a5e", fg = "#89b4fa" },
+  { name = "Yellow", bg = "#5e5a3a", fg = "#f9e2af" },
+  { name = "Purple", bg = "#4e3a5e", fg = "#cba6f7" },
+  { name = "Teal", bg = "#3a5e57", fg = "#94e2d5" },
+  { name = "Peach", bg = "#5e4a3a", fg = "#fab387" },
+  { name = "Pink", bg = "#5e3a52", fg = "#f5c2e7" },
+}
+
+_G.apply_presentation_highlight = function()
+  if _G.presentation_mode then
+    local color = _G.presentation_colors[_G.presentation_color_index]
+    vim.opt.cursorline = true
+    vim.api.nvim_set_hl(0, 'CursorLine', {
+      bg = color.bg,
+      bold = true,
+    })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', {
+      fg = color.fg,
+      bg = color.bg,
+      bold = true,
+    })
+  end
+end
+
+_G.toggle_presentation_mode = function()
+  _G.presentation_mode = not _G.presentation_mode
+
+  if _G.presentation_mode then
+    _G.apply_presentation_highlight()
+    local color = _G.presentation_colors[_G.presentation_color_index]
+    print("Presentation mode: ON (" .. color.name .. ")")
+  else
+    -- Reset to default subtle cursorline
+    vim.opt.cursorline = true
+    vim.api.nvim_set_hl(0, 'CursorLine', {
+      bg = '#313244',  -- Subtle surface0 from Catppuccin Mocha
+    })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', {
+      fg = '#cdd6f4',  -- Default text color
+      bg = '#313244',
+    })
+    print("Presentation mode: OFF")
+  end
+end
+
+_G.cycle_presentation_color = function()
+  if not _G.presentation_mode then
+    print("Enable presentation mode first (press p)")
+    return
+  end
+
+  _G.presentation_color_index = _G.presentation_color_index % #_G.presentation_colors + 1
+  _G.apply_presentation_highlight()
+  local color = _G.presentation_colors[_G.presentation_color_index]
+  print("Presentation color: " .. color.name)
+end
+
 -- Markdown-specific fold keybindings
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
@@ -94,5 +206,8 @@ vim.api.nvim_create_autocmd("FileType", {
     map('n', 'za', '<cmd>lua toggle_fold_smart()<CR>', { buffer = true, desc = "Toggle fold at cursor" })
     map('n', 'zR', 'zR', { buffer = true, desc = "Open all folds" })
     map('n', 'zM', 'zM', { buffer = true, desc = "Close all folds" })
+
+    -- Override gx to open markdown files in Neovim
+    map('n', 'gx', '<cmd>lua open_link_smart()<CR>', { buffer = true, desc = "Open link under cursor" })
   end,
 })

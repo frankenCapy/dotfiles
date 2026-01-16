@@ -88,5 +88,14 @@ return {
 		vim.api.nvim_set_hl(0, 'MiniDiffSignDelete', {
 			fg = '#8a5a5a',  -- Brighter red but still subtle
 		})
+
+		-- Set default subtle cursorline highlight
+		vim.api.nvim_set_hl(0, 'CursorLine', {
+			bg = '#313244',  -- Subtle surface0 from Catppuccin Mocha
+		})
+		vim.api.nvim_set_hl(0, 'CursorLineNr', {
+			fg = '#cdd6f4',  -- Default text color
+			bg = '#313244',
+		})
 	end
 }

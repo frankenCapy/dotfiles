@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 -- Auto-reload files changed outside of vim
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"}, {
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   desc = 'Auto reload files changed outside of vim',
   group = vim.api.nvim_create_augroup('auto-reload', { clear = true }),
   pattern = "*",
@@ -72,8 +72,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr = "v:lua.markdown_fold_expr()"
-    vim.opt_local.foldlevel = 99     -- Start with all folds open
-    vim.opt_local.foldenable = true  -- Enable folds for markdown
+    vim.opt_local.foldlevel = 99    -- Start with all folds open
+    vim.opt_local.foldenable = true -- Enable folds for markdown
   end,
 })
-

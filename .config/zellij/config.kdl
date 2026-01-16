@@ -94,13 +94,36 @@ keybinds clear-defaults=true {
             }
         }
 
-        // Lazygit integration (mirrors tmux prefix+g)
-        bind "Ctrl g" {
-            LaunchOrFocusPlugin "filepicker" {
+        // Alt g - floating lazygit
+        bind "Alt g" {
+            NewPane {
                 floating true
-                close_on_selection true
+                command "lazygit"
+                close_on_exit true
             }
-            MessagePlugin "Open lazygit in floating pane"
+        }
+        // Alt Shift g - lazygit in new pane
+        bind "Alt G" {
+            NewPane "Down" {
+                command "lazygit"
+                close_on_exit true
+            }
+        }
+
+        // Alt i - floating lazydocker
+        bind "Alt i" {
+            NewPane {
+                floating true
+                command "lazydocker"
+                close_on_exit true
+            }
+        }
+        // Alt Shift i - lazydocker in new pane
+        bind "Alt I" {
+            NewPane "Down" {
+                command "lazydocker"
+                close_on_exit true
+            }
         }
 
         // Mode switching

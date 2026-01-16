@@ -17,6 +17,8 @@ return {
   _s_ %{scl} sign column always visible
   _d_ %{dim} dim diagnostics
   _l_ %{cc} colorcolumn (line length hint)
+  _p_ %{pres} presentation mode %{prescolor}
+  _P_ cycle presentation color
   ^
        ^^^^                _<Esc>_
 ]]
@@ -48,6 +50,21 @@ return {
         return '[ ]'
       else
         return '[x]'
+      end
+    end
+    funcs.pres = function()
+      if _G.presentation_mode then
+        return '[x]'
+      else
+        return '[ ]'
+      end
+    end
+    funcs.prescolor = function()
+      if _G.presentation_mode then
+        local color = _G.presentation_colors[_G.presentation_color_index]
+        return '(' .. color.name .. ')'
+      else
+        return ''
       end
     end
 
@@ -155,6 +172,12 @@ return {
             vim.o.colorcolumn = ''
           end
         end, { desc = 'colorcolumn' } },
+        { 'p', function()
+          toggle_presentation_mode()
+        end, { desc = 'presentation mode' } },
+        { 'P', function()
+          cycle_presentation_color()
+        end, { desc = 'cycle presentation color' } },
         { '<Esc>', nil, { exit = true } },
       }
     })

@@ -7,7 +7,8 @@ return {
   ft = { 'markdown' },
   config = function()
     require('render-markdown').setup({
-      render_modes = { 'n', 'c', 't' },
+      render_modes = { 'n', 'c', 't', 'V' },
+      nested = false,
       heading = {
         sign = false,
         icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
